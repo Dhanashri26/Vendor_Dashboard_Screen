@@ -1,0 +1,33 @@
+<div class="chart-panel">
+    <div class="chart-card">
+      <h4>Vendor breakdown</h4>
+      <p>Keep track of vendors and their security ratings.</p>
+      <div id="chart">
+        <apx-chart
+        [series]="chartOptions.series" 
+        [chart]="chartOptions.chart" 
+        [xaxis]="chartOptions.xaxis" 
+        [yaxis]="chartOptions.yaxis" 
+        [plotOptions]="chartOptions.plotOptions" 
+        [dataLabels]="chartOptions.dataLabels" 
+        [fill]="chartOptions.fill" 
+        [legend]="chartOptions.legend">
+        ></apx-chart>
+      </div>
+      <button class="report-btn">View full report</button>
+    </div>
+    <div class="chart-card right">
+      <h4>Vendors monitored</h4>
+      <div class="metric">240</div>
+        <apx-chart
+          [series]="radialChartOptions.series"
+          [chart]="radialChartOptions.chart"
+          [plotOptions]="radialChartOptions.plotOptions"
+          [fill]="radialChartOptions.fill"
+        ></apx-chart>
+      <p>You've almost reached your limit</p>
+      <small>You have used 80% of your available spots. Upgrade plan to monitor more vendors </small>
+      <button class="upgrade-btn">Upgrade plan</button>
+    </div>
+  </div>
+  

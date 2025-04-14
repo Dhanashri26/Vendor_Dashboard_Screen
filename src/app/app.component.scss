@@ -1,0 +1,21 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh; // Ensures full vertical height so scrolling can be managed
+  overflow: hidden; // Prevents scroll on the container itself
+}
+
+.sidebar {
+  width: 60px;
+  background-color: #fff;
+  border-right: 1px solid #e5e7eb;
+  height: 100vh;
+  overflow: hidden; // Ensures no scrollbars
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto; // Make main content scrollable if needed
+  background-color: #f9fafb;
+  padding: 1rem;
+}

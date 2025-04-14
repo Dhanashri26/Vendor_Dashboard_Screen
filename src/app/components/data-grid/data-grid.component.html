@@ -1,0 +1,167 @@
+<div class="table-container">
+  <h2>Team Members <span>{{rows.length}} users</span></h2>
+  @if(loading){
+  <div class="loader-overlay">
+    <div class="loader"></div>
+  </div>
+  }@else {
+  <table class="data-table">
+    <thead>
+      <tr>
+        @for(column of columns;track column){
+        <th [style.text-align]="column.align">
+          @if(column.type === 'name') {
+            <input type = "checkbox" (change)="toggleAllNames($event)">
+          }
+          @if(column.type ==='status') {
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
+              <path d="M12 5l0 14"></path>
+              <path d="M18 13l-6 6"></path>
+              <path d="M6 13l6 6"></path>
+            </svg>
+          }        
+          {{ column.header }}
+        </th>
+        }
+
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for(row of rows; track row; let i=$index){
+      <tr>
+        @for(column of columns; track column){
+        <td [style.text-align]="column.align">
+          <!-- Handle nested fields based on type -->
+          <ng-container>
+            @switch (column.type) { 
+              @case('name'){
+            <ng-container>
+              <input type="checkbox" [(ngModel)] = "row.selected">
+              {{ row[column.field]?.first_name }}
+              {{ row[column.field]?.last_name }}
+              <span class="handle">{{ row[column.field]?.handle }}</span>
+              
+            </ng-container>
+            
+
+            } 
+               @case("progress"){
+                <div class="progress-container">
+                  <div class="progress-wrapper">
+                    <div class="progress-bar" [style.width.%]="row[column.field]"></div>
+                  </div>
+                  <span class="percent-text">{{ row[column.field] }}%</span>
+                </div>
+
+            }
+            @case('status'){
+            <div class="tags-group">
+              <span
+                [class]="
+                  row[column.field] == 'Customer' ? 'isCustomer' : 'isChurned'
+                "
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#000000"
+                  class="bi bi-circle-fill"
+                  viewBox="0 0 8 8"
+                  id="Circle-Fill--Streamline-Bootstrap"
+                  height="8"
+                  width="8"
+                >
+                  <desc>
+                    Circle Fill Streamline Icon: https://streamlinehq.com
+                  </desc>
+                  <path
+                    d="M0 4a4 4 0 1 0 8 0A4 4 0 1 0 0 4"
+                    stroke-width="0.5"
+                  ></path>
+                </svg>
+                {{ row[column.field] }}
+              </span>
+            </div>
+            
+            } @case('tags'){
+              
+            <div class="tags-group">
+              @for(tag of row[column.field];track tag){
+
+              <span
+                [style.color]="tag.text_color"
+                [style.border-color]="tag.text_color"
+                [style.backgroundColor]="tag.background_color"
+                class="tag"
+              >
+                {{ tag.value }}
+              </span>
+
+              }
+            </div>
+            } @default {
+            <ng-container>
+              {{ row[column.field] }}
+            </ng-container>
+            } }
+          </ng-container>
+        </td>
+        }
+
+        <td>
+          <div class="action-buttons">
+            <div (click)="deleteRow(i)" class="btn-delete">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="24"
+                height="24"
+                stroke-width="2"
+              >
+                <path d="M4 7l16 0"></path>
+                <path d="M10 11l0 6"></path>
+                <path d="M14 11l0 6"></path>
+                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+              </svg>
+            </div>
+            <div (click)="editRow(i)" class="btn-edit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                width="24"
+                height="24"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"
+                ></path>
+                <path d="M13.5 6.5l4 4"></path>
+              </svg>
+            </div>
+          </div>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="pagination">
+    <button>« Previous</button>
+    <div>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+    </div>
+    <button>Next »</button>
+  </div>
+  }
+</div>

@@ -1,0 +1,39 @@
+.chart-panel {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+  
+    .chart-card {
+      flex: 1;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  
+      &.right {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .metric {
+        font-size: 3rem;
+        color: #6d28d9;
+        font-weight: bold;
+      }
+  
+      .report-btn, .upgrade-btn {
+        margin-top: 1rem;
+        background: #ede9fe;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+         margin-top: auto; /* Push button to the bottom */
+         align-self: flex-end; /* Align button to the right */
+      }
+    }
+  }
+  
